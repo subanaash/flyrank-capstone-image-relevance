@@ -57,14 +57,16 @@ curl -X POST http://localhost:8000/images/ingest
 Run `python evaluate.py` from project root (server must be running). Tests all posts against a labeled set of expected animals.
 
 **Result: 6/11 correct, 4 rejected by guard (no confident match), 1 wrong.**
-**Precision: 85.71% — Recall: 54.55%**
+**Precision: 85.71% ,  Recall: 54.55%**
 
 The guard prioritizes not being wrong over always answering — when it does approve a match, it's right 86% of the time.
 
 ## What I'd fix with more time
 
 - Keyword matching checked post title+body combined at first, which misfired when a post mentioned a different animal for contrast (e.g. a wolf post mentioning "fox"). Fixed by checking title first, body only as fallback.
+- 
 - Recall (54.55%) is lower than ideal — some correct images exist but score just under the similarity threshold. Would tune the threshold or improve caption quality with better prompting.
+- 
 - Would add a coarser fallback: if the strict guard rejects everything, return the closest same-category match with a "low confidence" flag instead of nothing.
 
 ## Screenshot
